@@ -66,7 +66,7 @@
   
       const fetchProduct = async (id) => {
         try {
-          const response = await axios.get(`/product/${id}`);
+          const response = await axios.get(`http://localhost:3000/product/${id}`);
           const data = response.data;
   
           title.value = data.title;
@@ -92,10 +92,10 @@
           };
   
           if (isEditMode.value) {
-            await axios.put(`/product/${route.params.id}`, payload);
+            await axios.put(`http://localhost:3000/product/${route.params.id}`, payload);
             alert('Product updated successfully!');
           } else {
-            await axios.post('/product', payload);
+            await axios.post('http://localhost:3000/product', payload);
             alert('Product created successfully!');
           }
   

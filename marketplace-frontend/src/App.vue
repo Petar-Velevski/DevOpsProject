@@ -27,7 +27,7 @@ export default {
   methods: {
     async fetchProducts() {
       try {
-        const response = await axios.get('/product'); //  Your API endpoint
+        const response = await axios.get('http://localhost:3000/product'); //  Your API endpoint
         this.products = response.data;
       } catch (error) {
         console.error('Error fetching products:', error);

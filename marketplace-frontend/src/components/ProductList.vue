@@ -28,7 +28,7 @@
       const products = computed(() => store.getters.allProducts);
   
       const goToAddProduct = () => {
-          router.push('/add-product');
+          router.push('http://localhost:3000/add-product');
       };
       return {
         products,

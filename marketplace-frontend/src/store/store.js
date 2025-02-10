@@ -10,11 +10,11 @@ export default createStore({
   },
   actions: {
     async fetchProducts({ commit }) {
-      const response = await axios.get('/product');
+      const response = await axios.get('http://localhost:3000/product');
       commit('setProducts', response.data);
     },
     async addProduct({ commit }, product) {
-      const response = await axios.post('/product', product);
+      const response = await axios.post('http://localhost:3000/product', product);
       commit('newProduct', response.data)
     },
   },

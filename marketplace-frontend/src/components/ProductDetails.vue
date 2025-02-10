@@ -43,7 +43,7 @@
   
       const fetchProduct = async () => {
         try {
-          const response = await axios.get(`/product/${productId.value}`);
+          const response = await axios.get(`http://localhost:3000/product/${productId.value}`);
           product.value = response.data;
         } catch (error) {
           console.error('Error fetching product:', error);
@@ -61,7 +61,7 @@
       const deleteProduct = async () => {
         if (confirm('Are you sure you want to delete this product?')) {
           try {
-            await axios.delete(`/product/${productId.value}`);
+            await axios.delete(`http://localhost:3000/product/${productId.value}`);
             alert('Product deleted successfully!');
             router.push('/');
           } catch (error) {

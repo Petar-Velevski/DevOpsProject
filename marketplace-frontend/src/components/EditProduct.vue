@@ -64,7 +64,7 @@ export default {
     // Fetch product details by ID
     const fetchProduct = async (id) => {
       try {
-        const response = await axios.get(`/product/${id}`);
+        const response = await axios.get(`http://localhost:3000/product/${id}`);
         const data = response.data;
 
         title.value = data.title;
@@ -91,7 +91,7 @@ export default {
         };
 
         // Update the product via API
-        await axios.put(`/product/${route.params.id}`, payload);
+        await axios.put(`http://localhost:3000/product/${route.params.id}`, payload);
 
         // Redirect to the product details page after successful update
         alert('Product updated successfully!');
