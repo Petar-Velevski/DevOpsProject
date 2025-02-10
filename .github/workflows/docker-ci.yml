@@ -27,11 +27,11 @@ jobs:
           context: .
           file: Dockerfile  
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/node-backend:${{ github.sha }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/node-backend:latest
 
       - name: Build and push frontend
         uses: docker/build-push-action@v4
         with:
           context: ./marketplace-frontend 
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/vue-frontend:${{ github.sha }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/vue-frontend:latest
