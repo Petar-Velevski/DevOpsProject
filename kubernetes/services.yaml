@@ -1,0 +1,53 @@
+# Backend Service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: marketplace
+  labels:
+    app: backend
+spec:
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: ClusterIP
+
+# Frontend Service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: marketplace
+  labels:
+    app: frontend
+spec:
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
+
+# MongoDB Service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+  namespace: marketplace
+  labels:
+    app: mongodb
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  type: ClusterIP

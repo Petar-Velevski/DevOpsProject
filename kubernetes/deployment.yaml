@@ -1,0 +1,91 @@
+# ConfigMap
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: marketplace-config
+  namespace: marketplace
+data:
+  FRONTEND_URL: "http://localhost:8080"  
+  BACKEND_URL: "http://localhost:3000"  
+
+# Secret
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: marketplace-secrets
+  namespace: marketplace
+type: Opaque
+data:
+    MONGO_URL: bW9uZ29kYitzcnY6Ly92ZWxldnNraXBldGFyOllrbFk2NU5Oc0NCRXJQelpAbWFya2V0cGxhY2UucnhsankubW9uZ29kYi5uZXQvTWFya2V0UGxhY2U/cmV0cnlXcml0ZXM9dHJ1ZSZ3PW1ham9yaXR5JmFwcE5hbWU9TWFya2V0UGxhY2U=
+    MONGO_DB_NAME: TWFya2V0UGxhY2U=
+
+# Backend Deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: marketplace
+spec:
+  replicas: 2 
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:A
+        app: backend
+    spec:
+      containers:
+      - name: marketplace-backend
+        image: petarvelevski/node-backend:latest 
+        ports:
+        - containerPort: 3000 
+        env:
+        - name: MONGO_URL
+          valueFrom:
+            secretKeyRef:
+              name: marketplace-secrets
+              key: MONGO_URL
+        - name: MONGO_DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: marketplace-secrets
+              key: MONGO_DB_NAME
+        - name: FRONTEND_URL
+          valueFrom:
+            configMapKeyRef:
+              name: marketplace-config
+              key: FRONTEND_URL
+
+# Frontend Deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  namespace: marketplace
+spec:
+  replicas: 2  
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: marketplace-frontend
+        image: petarvelevski/vue-frontend:latest 
+        ports:
+        - containerPort: 8080  
+        env:
+        - name: BACKEND_URL
+          valueFrom:
+            configMapKeyRef:
+              name: marketplace-config
+              key: BACKEND_URL
+
