@@ -24,14 +24,15 @@ jobs:
       - name: Build and push backend
         uses: docker/build-push-action@v4
         with:
-          context: ./marketplace-backend 
-          file: Dockerfile  
+          context: ./marketplace-backend
+          file: ./marketplace-backend/Dockerfile  
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/node-backend:latest
 
       - name: Build and push frontend
         uses: docker/build-push-action@v4
         with:
-          context: ./marketplace-frontend 
+          context: ./marketplace-frontend
+          file: ./marketplace-frontend/Dockerfile 
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/vue-frontend:latest
